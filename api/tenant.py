@@ -67,8 +67,3 @@ class Tenant(Client):
         }
 
         return self.post_file('/Api/External/DownLoadAnalysisByID', jsondata=data)
-        # with open(r'cc', 'wb+') as f:
-        #     f.write(r.content)
-        # return r
-
-# tenant = Tenant(data.load_ini(data_file_path)['host']['baseurl'])
