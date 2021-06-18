@@ -1,0 +1,5 @@
+init_vivo_user:
+  key: 'QA'
+  secret: 'e10adc3949ba59abbe56e057f20f883e'
+  clientcode: 'QA'
+  apitype: 0
