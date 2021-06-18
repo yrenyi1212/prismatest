@@ -1,7 +1,6 @@
 import pytest
 from testcases.conftest import api_data
-from .conftest import tenant
-from common.tools import set_header
+from .conftest import tenant, set_header
 import allure
 
 
