@@ -14,7 +14,6 @@ class ReadFileData:
     def load_ini(self, file_path):
         config = ConfigParser()
         config.read(file_path, encoding='utf-8')
-        # data = config.sections()
         return config
 
 
