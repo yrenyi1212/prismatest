@@ -1,11 +1,9 @@
 import pytest
-import yaml
 import os
 from common.read_data import data
 import logging
 from api.tenant import Tenant
 import allure
-from functools import wraps
 
 BASE_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 data_file_path = os.path.join(BASE_PATH, 'config', 'setting.ini')
@@ -41,20 +39,3 @@ def getkey_fixtrue():
     yield res['data']['apikey']
 
 
-def set_header(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        tenant.session.headers.pop('HTTP_X_FORWARDED_FOR', None)
-        reqip = kwargs.get('reqip')
-        title = kwargs.get('title')
-        apikey = kwargs.get('apikey')
-        if title:
-            allure.dynamic.title(title)
-        if reqip:
-            tenant.session.headers.update({"HTTP_X_FORWARDED_FOR": reqip})
-        if apikey == 0:
-            apikey = kwargs.get('getkey_fixtrue')
-            kwargs.update({'apikey': apikey})
-        return func(*args, **kwargs)
-
-    return wrapper
