@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from core.client import Client
 import allure
 

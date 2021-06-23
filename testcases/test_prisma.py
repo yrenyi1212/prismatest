@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pytest
 from testcases.conftest import api_data
 from .conftest import tenant, set_header
