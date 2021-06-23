@@ -21,7 +21,8 @@ base_data = get_data('base_data.yml')
 api_data = get_data('api_test_data.yml')
 
 HOST = data.load_ini(data_file_path)['host']['BASEURL']
-HTTP_X_FORWARDED_FOR = data.load_ini(data_file_path)['host']['HTTP_X_FORWARDED_FOR']
+IP_HEADER = data.load_ini(data_file_path)['host']['IP_HEADER']
+IP_HEADER_ADDR = data.load_ini(data_file_path)['host']['IP_HEADER_ADDR']
 tenant = Tenant(HOST)
 
 
@@ -36,7 +37,7 @@ def getkey_fixtrue():
     key = base_data['init_vivo_user']['key']
     secret = base_data['init_vivo_user']['secret']
     clientcode = base_data['init_vivo_user']['clientcode']
-    tenant.session.headers.update({"HTTP_X_FORWARDED_FOR": HTTP_X_FORWARDED_FOR})
+    tenant.session.headers.update({IP_HEADER: IP_HEADER_ADDR})
     res = tenant.get_key(key, secret, clientcode, apitype=0)
     yield res['data']['apikey']
 
@@ -44,14 +45,14 @@ def getkey_fixtrue():
 def set_header(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        tenant.session.headers.pop('HTTP_X_FORWARDED_FOR', None)
+        tenant.session.headers.pop(IP_HEADER, None)
         reqip = kwargs.get('reqip')
         title = kwargs.get('title')
         apikey = kwargs.get('apikey')
         if title:
             allure.dynamic.title(title)
         if reqip:
-            tenant.session.headers.update({"HTTP_X_FORWARDED_FOR": reqip})
+            tenant.session.headers.update({IP_HEADER: reqip})
         if apikey == 0:
             apikey = kwargs.get('getkey_fixtrue')
             kwargs.update({'apikey': apikey})

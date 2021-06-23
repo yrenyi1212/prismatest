@@ -13,57 +13,57 @@ class Tenant(Client):
 
     @allure.step
     def get_key(self, key, secret, clientcode, apitype=0):
-        data = {
+        payloads = {
             'key': key,
             'secret': secret,
             'clientcode': clientcode,
             'apitype': apitype
         }
-        return self.post('/Api/External/GetKey', jsondata=data)
+        return self.post('/Api/External/GetKey', payloads=payloads)
 
     @allure.step('setp in tenant.py::Tenant')
     def get_project_info_list(self, apikey):
-        data = {
+        payloads = {
             'apikey': apikey
         }
-        return self.post('/Api/External/GetProjectInfoList', jsondata=data)
+        return self.post('/Api/External/GetProjectInfoList', payloads=payloads)
 
     @allure.step
     def get_send_project_list(self, apikey, projectid, pageindex, pagesize):
-        data = {
+        payloads = {
             'apikey': apikey,
             'projectid': projectid,
             'pageindex': pageindex,
             'pagesize': pagesize
         }
 
-        return self.post('/Api/External/GetSendToPersonList', jsondata=data)
+        return self.post('/Api/External/GetSendToPersonList', payloads=payloads)
 
     @allure.step
     def get_send_project_status_list(self, apikey, projectid, pageindex, pagesize):
-        data = {
+        payloads = {
             'apikey': apikey,
             'projectid': projectid,
             'pageindex': pageindex,
             'pagesize': pagesize
         }
-        return self.post('/Api/External/GetSendToPersonStatusList', jsondata=data)
+        return self.post('/Api/External/GetSendToPersonStatusList', payloads=payloads)
 
     @allure.step
     def get_analysis_list(self, apikey, projectid, demographicname, reporttype):
-        data = {
+        payloads = {
             'apikey': apikey,
             'projectid': projectid,
             'demographicname': demographicname,
             'reporttype': reporttype
         }
-        return self.post('/Api/External/GetAnalysisList', jsondata=data)
+        return self.post('/Api/External/GetAnalysisList', payloads=payloads)
 
     @allure.step
     def download_analysis_by_id(self, apikey, id):
-        data = {
+        payloads = {
             'apikey': apikey,
             'id': id
         }
 
-        return self.post_file('/Api/External/DownLoadAnalysisByID', jsondata=data)
+        return self.post_file('/Api/External/DownLoadAnalysisByID', payloads=payloads)

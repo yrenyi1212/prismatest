@@ -2,7 +2,7 @@ import requests
 import allure
 import os
 import json
-from urllib.parse import  unquote
+from urllib.parse import unquote
 
 BASE_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
@@ -13,8 +13,8 @@ class Client:
         self.session = requests.session()
 
     @allure.step('setp in client.py::Client')
-    def post(self, url, jsondata=None, **kwargs):
-        res = self.session.post(self.host + url, json=jsondata, **kwargs)
+    def post(self, url, payloads=None, **kwargs):
+        res = self.session.post(self.host + url, json=payloads, **kwargs)
         allure.attach(json.dumps(dict(self.session.headers.items())), 'request-headers', allure.attachment_type.TEXT)
         allure.attach(res.text, 'response-data', allure.attachment_type.TEXT)
         try:
@@ -26,9 +26,9 @@ class Client:
                     }
 
     @allure.step('setp in client.py::Client')
-    def post_file(self, url, jsondata=None, **kwargs):
-        res = self.session.post(self.host + url, json=jsondata, **kwargs)
-
+    def post_file(self, url, payloads=None, **kwargs):
+        res = self.session.post(self.host + url, json=payloads, **kwargs)
+        allure.attach(json.dumps(dict(self.session.headers.items())), 'request-headers', allure.attachment_type.TEXT)
         try:
             n = unquote(res.headers.get('Content-Disposition').split('\'\'')[1])
             filename = os.path.join(BASE_PATH, 'tmp', n)
