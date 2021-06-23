@@ -1,10 +1,5 @@
 from core.client import Client
-import os
 import allure
-from common.read_data import data
-
-# BASE_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-# data_file_path = os.path.join(BASE_PATH, 'config', 'setting.ini')
 
 
 class Tenant(Client):
@@ -66,4 +61,4 @@ class Tenant(Client):
             'id': id
         }
 
-        return self.post_file('/Api/External/DownLoadAnalysisByID', payloads=payloads)
+        return self.post('/Api/External/DownLoadAnalysisByID', payloads=payloads)

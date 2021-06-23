@@ -15,21 +15,20 @@ class Client:
     @allure.step('setp in client.py::Client')
     def post(self, url, payloads=None, **kwargs):
         res = self.session.post(self.host + url, json=payloads, **kwargs)
-        allure.attach(json.dumps(dict(self.session.headers.items())), 'request-headers', allure.attachment_type.TEXT)
-        allure.attach(res.text, 'response-data', allure.attachment_type.TEXT)
-        try:
-            return res.json()
-        except Exception as e:
-            return {'code': -1,
-                    'error': str(e),
-                    'data': res.text
-                    }
-
-    @allure.step('setp in client.py::Client')
-    def post_file(self, url, payloads=None, **kwargs):
-        res = self.session.post(self.host + url, json=payloads, **kwargs)
-        allure.attach(json.dumps(dict(self.session.headers.items())), 'request-headers', allure.attachment_type.TEXT)
-        try:
+        allure.attach(json.dumps(payloads, ensure_ascii=False), 'request payloads', allure.attachment_type.TEXT)
+        allure.attach(json.dumps(dict(self.session.headers.items())), 'request header', allure.attachment_type.TEXT)
+        allure.attach(json.dumps(dict(res.headers.items())), 'response header', allure.attachment_type.TEXT)
+        result = {}
+        if res.headers.get('Content-Type').find('application/octet-stream'):
+            allure.attach(res.text, 'response data', allure.attachment_type.TEXT)
+            try:
+                result = res.json()
+            except Exception:
+                result = {
+                    'code': -1,
+                    'message': res.text
+                }
+        else:
             n = unquote(res.headers.get('Content-Disposition').split('\'\'')[1])
             filename = os.path.join(BASE_PATH, 'tmp', n)
 
@@ -37,12 +36,9 @@ class Client:
                 f.write(res.content)
             _, filetype = os.path.splitext(filename)
             allure.attach(res.content, filename, attachment_type='application/octet-stream', extension=filetype)
-            r = {
+            result = {
                 'code': 0,
                 'filename': filename
             }
-            allure.attach(json.dumps(r), 'Response', attachment_type=allure.attachment_type.TEXT)
-        except Exception:
-            r = res.json()
-            allure.attach(res.text, 'Response', attachment_type=allure.attachment_type.TEXT)
-        return r
+
+        return result
