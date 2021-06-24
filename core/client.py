@@ -19,7 +19,6 @@ class Client:
         allure.attach(json.dumps(payloads, ensure_ascii=False), 'request payloads', allure.attachment_type.TEXT)
         allure.attach(json.dumps(dict(self.session.headers.items())), 'request header', allure.attachment_type.TEXT)
         allure.attach(json.dumps(dict(res.headers.items())), 'response header', allure.attachment_type.TEXT)
-        result = {}
         if res.headers.get('Content-Type').find('application/octet-stream'):
             allure.attach(res.text, 'response data', allure.attachment_type.TEXT)
             try:
