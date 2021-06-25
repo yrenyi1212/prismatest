@@ -61,7 +61,7 @@ def predata_fixture(tenant, getkey_fixtrue, request):
     if header:
         tenant.session.headers.update(header)
     else:
-        tenant.session.headers.pop('HTTP_X_FORWARDED_FOR', None)
+        tenant.session.headers.pop(IP_HEADER, None)
 
     title = param.get('title', None)
     if title:
