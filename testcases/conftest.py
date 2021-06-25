@@ -49,7 +49,7 @@ def getkey_fixtrue(tenant):
 
 
 @pytest.fixture(autouse=True)
-def info(tenant, getkey_fixtrue, request):
+def predata_fixture(tenant, getkey_fixtrue, request):
     param = request.getfixturevalue('param')
     if 'getkey_fixtrue' in request.fixturenames:
         apikey = param['payload'].get('apikey', None)
