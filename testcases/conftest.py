@@ -66,7 +66,7 @@ def predata_fixture(tenant, getkey_fixtrue, request):
     title = param.get('title', None)
     if title:
         allure.title(title)
-    logging.info(param['payload'])
+    # logging.info(param['payload'])
     return param['payload']
 
 
