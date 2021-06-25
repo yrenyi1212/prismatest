@@ -1,0 +1,7 @@
+/data/test_download_analysis_by_id.json
+/data/test_get_analysis_list.json
+/data/test_get_key.json
+/data/test_get_project_list.json
+/data/test_get_send_project_list.json
+/data/test_get_send_project_status_list.json
+/testcases/testa.py
