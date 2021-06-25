@@ -1,0 +1,31 @@
+{
+  "payloads": [
+    {
+      "title": "获取项目填答地址-pass",
+      "header": {
+        "HTTP_X_FORWARDED_FOR": "218.189.25.100"
+      },
+      "payload": {
+        "apikey": 0,
+        "projectid": 104,
+        "pageindex": 1,
+        "pagesize": 10
+      },
+      "expect": {
+        "code": 0
+      }
+    },
+    {
+      "title": "获取项目填答地址-IP限制",
+      "payload": {
+        "apikey": "",
+        "projectid": 104,
+        "pageindex": 1,
+        "pagesize": 10
+      },
+      "expect": {
+        "code": -1
+      }
+    }
+  ]
+}

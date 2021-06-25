@@ -1,0 +1,40 @@
+{
+  "payloads": [
+    {
+      "title": "下载报告-系统报告",
+      "header": {
+        "HTTP_X_FORWARDED_FOR": "218.189.25.100"
+      },
+      "payload": {
+        "apikey": 0,
+        "id": 587
+      },
+      "expect": {
+        "code": 0
+      }
+    },
+    {
+      "title": "下载报告-调研汇总",
+      "header": {
+        "HTTP_X_FORWARDED_FOR": "218.189.25.100"
+      },
+      "payload": {
+        "apikey": 0,
+        "id": 588
+      },
+      "expect": {
+        "code": 0
+      }
+    },
+    {
+      "title": "IP限制",
+      "payload": {
+        "apikey": "",
+        "id": 588
+      },
+      "expect": {
+        "code": -1
+      }
+    }
+  ]
+}

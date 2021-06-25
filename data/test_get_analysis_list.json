@@ -1,0 +1,46 @@
+{
+  "payloads": [
+    {
+      "title": "获取报告列表-系统报告",
+      "header": {
+        "HTTP_X_FORWARDED_FOR": "218.189.25.100"
+      },
+      "payload": {
+        "apikey": 0,
+        "projectid": 104,
+        "demographicname": "测试",
+        "reporttype": 0
+      },
+      "expect": {
+        "code": 0
+      }
+    },
+    {
+      "title": "请求源IP为空",
+      "payload": {
+        "apikey": 0,
+        "projectid": 104,
+        "demographicname": "测试",
+        "reporttype": 1
+      },
+      "expect": {
+        "code": -1
+      }
+    },
+    {
+      "title": "请求apikey为空",
+      "header": {
+        "HTTP_X_FORWARDED_FOR": "218.189.25.100"
+      },
+      "payload": {
+        "apikey": "",
+        "projectid": 104,
+        "demographicname": "测试",
+        "reporttype": 1
+      },
+      "expect": {
+        "code": -1
+      }
+    }
+  ]
+}
