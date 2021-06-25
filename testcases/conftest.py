@@ -84,6 +84,11 @@ def predata_fixture(tenant, getkey_fixtrue, request):
 
 
 def pytest_generate_tests(metafunc):
+    f"""
+    参数化,生成测试用例，请保证测试数据文件名与测试方法名一致，不然无法自动生成用例
+    :param metafunc: 
+    :return: 
+    """
     if "param" in metafunc.fixturenames:
         filename = metafunc.function.__name__ + ".json"
         dat = json.load(open(os.path.join(BASE_PATH, 'data', filename), encoding='UTF-8'))
