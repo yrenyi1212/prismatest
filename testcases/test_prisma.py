@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import allure
 from functools import wraps
-import logging
-
 
 def check_result(func):
     """
