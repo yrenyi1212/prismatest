@@ -36,9 +36,15 @@ def tenant():
     yield t
     t.session.close()
 
+
 @allure.step
 @pytest.fixture()
 def getkey_fixtrue(tenant):
+    """
+    预获取apikey
+    :param tenant:
+    :return:
+    """
     key = base_data['init_vivo_user']['key']
     secret = base_data['init_vivo_user']['secret']
     clientcode = base_data['init_vivo_user']['clientcode']
@@ -50,6 +56,13 @@ def getkey_fixtrue(tenant):
 
 @pytest.fixture(autouse=True)
 def predata_fixture(tenant, getkey_fixtrue, request):
+    """
+    对header进行统一处理，对apikey进行预处理
+    :param tenant:
+    :param getkey_fixtrue:
+    :param request:
+    :return:
+    """
     param = request.getfixturevalue('param')
     if 'getkey_fixtrue' in request.fixturenames:
         apikey = param['payload'].get('apikey', None)
