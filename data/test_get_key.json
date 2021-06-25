@@ -1,0 +1,31 @@
+{
+  "payloads": [
+    {
+      "title": "获取APIKEY",
+      "header": {
+        "HTTP_X_FORWARDED_FOR": "218.189.25.100"
+      },
+      "payload": {
+        "key": "QA",
+        "secret": "e10adc3949ba59abbe56e057f20f883e",
+        "clientcode": "QA",
+        "apitype": 0
+      },
+      "expect": {
+        "code": 0
+      }
+    },
+    {
+      "title": "获取APIKEY-IP限制",
+      "payload": {
+        "key": "QA1",
+        "secret": "e10adc3949ba59abbe56e057f20f883e",
+        "clientcode": "1QA",
+        "apitype": 0
+      },
+      "expect": {
+        "code": -1
+      }
+    }
+  ]
+}

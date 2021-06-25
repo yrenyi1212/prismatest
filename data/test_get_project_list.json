@@ -1,0 +1,28 @@
+{
+  "payloads": [
+    {
+      "title": "获取项目列表-错误的APIKEY",
+      "header": {
+        "HTTP_X_FORWARDED_FOR": "218.189.25.100"
+      },
+      "payload": {
+        "apikey": "12fdasfafdafa3"
+      },
+      "expect": {
+        "code": -1
+      }
+    },
+    {
+      "title": "获取报告列表-pass",
+      "header": {
+        "HTTP_X_FORWARDED_FOR": "218.189.25.100"
+      },
+      "payload": {
+        "apikey": 0
+      },
+      "expect": {
+        "code": 0
+      }
+    }
+  ]
+}
