@@ -15,8 +15,8 @@ def check_result(func):
     def wrapper(*args, **kwargs):
         res = func(*args, **kwargs)
         expect = kwargs["param"]["expect"]
-        result = check_dict(expect, res)
-        assert result, "预期与响应不符,预期{0}，响应{1}".format(expect, res)
+        check_dict(expect, res)
+
     return wrapper
 
 
