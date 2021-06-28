@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import allure
 from functools import wraps
-from common.tools import check_dict
+from common import check_dict
 from testcases import init_uri
 
 

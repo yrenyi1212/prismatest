@@ -6,15 +6,14 @@ class ReadFileData:
     def __init__(self):
         pass
 
-    def load_yaml(self, file_path):
+    @staticmethod
+    def load_yaml(file_path):
         with open(file_path, encoding='utf-8') as f:
             data = yaml.safe_load(f)
         return data
 
-    def load_ini(self, file_path):
+    @staticmethod
+    def load_ini(file_path):
         config = ConfigParser()
         config.read(file_path, encoding='utf-8')
         return config
-
-
-data = ReadFileData()
