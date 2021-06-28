@@ -12,7 +12,10 @@
         "apitype": 0
       },
       "expect": {
-        "code": 0
+        "code": 0,
+        "data": {
+          "apikey": "139B676E-3A84-40E2-BA0F-11CF8FF823021"
+        }
       }
     },
     {
@@ -25,6 +28,38 @@
       },
       "expect": {
         "code": -1
+      }
+    },
+    {
+      "title": "获取APIKEY-IP限制",
+      "header": {
+        "HTTP_X_FORWARDED_FOR": "218.189.25.100"
+      },
+      "payload": {
+        "key": "QA1",
+        "secret": "e10adc3949ba59abbe56e057f20f883e",
+        "clientcode": "QA",
+        "apitype": 0
+      },
+      "expect": {
+        "code": 0
+      }
+    },
+    {
+      "title": "获取APIKEY-IP限制",
+      "header": {
+        "HTTP_X_FORWARDED_FOR": "218.189.25.100"
+      },
+      "payload": {
+        "key": "QA",
+        "secret": "e10adc3949ba59abbe56e057f20f883e",
+        "clientcode": "QA",
+        "apitype": 0
+      },
+      "expect": {
+        "code": 0,
+        "message": "success",
+        "res": "123"
       }
     }
   ]
