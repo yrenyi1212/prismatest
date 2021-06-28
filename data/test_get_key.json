@@ -33,7 +33,7 @@
     {
       "title": "获取APIKEY-IP限制",
       "header": {
-        "HTTP_X_FORWARDED_FOR": "218.189.25.100"
+        "HTTP_X_FORWARDED_FOR": "218.189.25.101"
       },
       "payload": {
         "key": "QA1",
@@ -43,10 +43,14 @@
       },
       "expect": {
         "code": 0
+      },
+      "mark": {
+        "value": "xfail",
+        "message": "预期失败，当前IP地址受限"
       }
     },
     {
-      "title": "获取APIKEY-IP限制",
+      "title": "获取APIKEY-预期失败",
       "header": {
         "HTTP_X_FORWARDED_FOR": "218.189.25.100"
       },
@@ -60,6 +64,10 @@
         "code": 0,
         "message": "success",
         "res": "123"
+      },
+      "mark": {
+        "value": "xfail",
+        "message": "预期字段res不存在，测试用"
       }
     }
   ]
