@@ -1,4 +1,3 @@
-
 def check_dict(expect, res):
     """
     递归比较两个字典的key:value是否一致
@@ -12,4 +11,4 @@ def check_dict(expect, res):
             temp_value2 = res.get(k, None)
             check_dict(temp_value1, temp_value2)
     else:
-        assert expect == res, "响应错误,预期{0}，响应{1}".format(expect, res)
+        return expect == res
