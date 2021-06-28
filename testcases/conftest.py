@@ -1,28 +1,11 @@
 # -*- coding: utf-8 -*-
 import pytest
 import os
-from common.read_data import data
 from api.tenant import Tenant
 import allure
-
 import json
 import logging
-
-BASE_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-data_file_path = os.path.join(BASE_PATH, 'config', 'setting.ini')
-
-
-def get_data(yaml_file_name):
-    data_file_path = os.path.join(BASE_PATH, 'data', yaml_file_name)
-    yaml_data = data.load_yaml(data_file_path)
-    return yaml_data
-
-
-base_data = get_data('base_data.yml')
-
-HOST = data.load_ini(data_file_path)['host']['BASEURL']
-IP_HEADER = data.load_ini(data_file_path)['host']['IP_HEADER']
-IP_HEADER_ADDR = data.load_ini(data_file_path)['host']['IP_HEADER_ADDR']
+from testcases import *
 
 
 @pytest.fixture(autouse=True)
@@ -45,12 +28,9 @@ def getkey_fixtrue(tenant):
     :param tenant:
     :return:
     """
-    key = base_data['init_vivo_user']['key']
-    secret = base_data['init_vivo_user']['secret']
-    clientcode = base_data['init_vivo_user']['clientcode']
+
     tenant.session.headers.update({IP_HEADER: IP_HEADER_ADDR})
-    res = tenant.post(url='/Api/External/GetKey',
-                      json={"key": key, "secret": secret, "clientcode": clientcode, "apitype": 0})
+    res = tenant.post(url=init_uri['GetKey'], json=base_data['init_vivo_user'])
     yield res['data']['apikey']
 
 

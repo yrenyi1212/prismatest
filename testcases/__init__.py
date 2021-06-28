@@ -1,0 +1,17 @@
+import os
+from common.read_data import data
+
+BASE_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+data_file_path = os.path.join(BASE_PATH, 'config', 'setting.ini')
+
+base_data = data.load_yaml(os.path.join(BASE_PATH, 'data', 'base_data.yml'))
+init_conf = data.load_ini(os.path.join(BASE_PATH, 'config', 'setting.ini'))
+
+init_uri = init_conf['URL']
+init_host = init_conf['HOST']
+
+HOST = init_host['BASEURL']
+IP_HEADER = init_host['IP_HEADER']
+IP_HEADER_ADDR = init_host['IP_HEADER_ADDR']
+
+__all__ = ['BASE_PATH', 'base_data', 'init_conf', 'HOST', 'IP_HEADER', 'IP_HEADER_ADDR', 'init_uri']

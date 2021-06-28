@@ -2,6 +2,7 @@
 import allure
 from functools import wraps
 from common.tools import check_dict
+from testcases import init_uri
 
 
 def check_result(func):
@@ -26,35 +27,35 @@ class TestPrisma:
     @allure.story('获取凭证')
     @check_result
     def test_get_key(self, param, tenant):
-        res = tenant.post(url='/Api/External/GetKey', json=param['payload'])
+        res = tenant.post(url=init_uri['GetKey'], json=param['payload'])
         return res
 
     @allure.story('获取租户的项目列表')
     @check_result
     def test_get_project_list(self, param, tenant):
-        res = tenant.post(url='/Api/External/GetProjectInfoList', json=param['payload'])
+        res = tenant.post(url=init_uri['GetProjectInfoList'], json=param['payload'])
         return res
 
     @allure.story('获得租户项目填答地址')
     @check_result
     def test_get_send_project_list(self, param, tenant):
-        res = tenant.post(url='/Api/External/GetSendToPersonList', json=param['payload'])
+        res = tenant.post(url=init_uri['GetSendToPersonList'], json=param['payload'])
         return res
 
     @allure.story('获得人员填答状态')
     @check_result
     def test_get_send_project_status_list(self, param, tenant):
-        res = tenant.post(url='/Api/External/GetSendToPersonStatusList', json=param['payload'])
+        res = tenant.post(url=init_uri['GetSendToPersonStatusList'], json=param['payload'])
         return res
 
     @allure.story('获取报告')
     @check_result
     def test_get_analysis_list(self, param, tenant):
-        res = tenant.post(url='/Api/External/GetAnalysisList', json=param['payload'])
+        res = tenant.post(url=init_uri['GetAnalysisList'], json=param['payload'])
         return res
 
     @allure.story('下载报告')
     @check_result
     def test_download_analysis_by_id(self, param, tenant):
-        res = tenant.post(url='/Api/External/DownLoadAnalysisByID', json=param['payload'])
+        res = tenant.post(url=init_uri['DownLoadAnalysisByID'], json=param['payload'])
         return res
