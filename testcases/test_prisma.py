@@ -3,7 +3,6 @@ import allure
 from functools import wraps
 from common import check_dict
 from testcases import init_uri
-import pytest
 
 
 def check_result(func):
@@ -17,14 +16,7 @@ def check_result(func):
     def wrapper(*args, **kwargs):
         res = func(*args, **kwargs)
         expect = kwargs["param"]["expect"]
-        try:
-            check_dict(expect, res)
-        except AssertionError as e:
-            mark = kwargs["param"].get("mark", None)
-            if mark is not None and mark.get("value", None) == "xfail":
-                pytest.xfail(mark.get("message", "预期失败"))
-            else:
-                pytest.fail(str(e))
+        check_dict(expect, res)
 
     return wrapper
 
