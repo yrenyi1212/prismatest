@@ -44,6 +44,7 @@ def predata_fixture(tenant, getkey_fixtrue, request):
     :return:
     """
     param = request.getfixturevalue('param')
+
     if 'getkey_fixtrue' in request.fixturenames:
         apikey = param['payload'].get('apikey', None)
         if apikey == 0:
@@ -59,7 +60,6 @@ def predata_fixture(tenant, getkey_fixtrue, request):
     title = param.get('title', None)
     if title:
         allure.title(title)
-    # logging.info(param['payload'])
     return param['payload']
 
 
@@ -71,8 +71,13 @@ def pytest_generate_tests(metafunc):
     """
     if "param" in metafunc.fixturenames:
         filename = metafunc.function.__name__ + ".json"
-        dat = json.load(open(os.path.join(BASE_PATH, 'data', filename), encoding='UTF-8'))
-        ids = [i["title"] for i in dat['payloads']]
-        metafunc.parametrize("param", dat['payloads'], ids=ids, scope='function')
+        _f = os.path.join(BASE_PATH, 'data', filename)
+        if os.path.exists(_f):
+            dat = json.load(open(os.path.join(BASE_PATH, 'data', _f), encoding='UTF-8'))
+            ids = [i["title"] for i in dat['payloads']]
+            metafunc.parametrize("param", dat['payloads'], ids=ids)
+        else:
+            metafunc.definition.add_marker('skip')
+            metafunc.parametrize("param", {})
     else:
         pass
