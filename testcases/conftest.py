@@ -73,7 +73,7 @@ def pytest_generate_tests(metafunc):
         filename = metafunc.function.__name__ + ".json"
         _f = os.path.join(BASE_PATH, 'data', filename)
         if os.path.exists(_f):
-            dat = json.load(open(os.path.join(BASE_PATH, 'data', _f), encoding='UTF-8'))
+            dat = json.load(open(_f, encoding='UTF-8'))
             ids = [i["title"] for i in dat['payloads']]
             metafunc.parametrize("param", dat['payloads'], ids=ids)
         else:
