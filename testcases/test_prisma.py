@@ -15,7 +15,7 @@ def check_result(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         res = func(*args, **kwargs)
-        expect = kwargs["param"]["expect"]
+        expect = kwargs["params"]["expect"]
         check_dict(expect, res)
 
     return wrapper
@@ -26,36 +26,36 @@ class TestPrisma:
 
     @allure.story('获取凭证')
     @check_result
-    def test_get_key(self, param, tenant):
-        res = tenant.post(url=init_uri['GetKey'], json=param['payload'])
+    def test_get_key(self, params, tenant):
+        res = tenant.post(url=init_uri['GetKey'], json=params['payload'])
         return res
 
     @allure.story('获取租户的项目列表')
     @check_result
-    def test_get_project_list(self, param, tenant):
-        res = tenant.post(url=init_uri['GetProjectInfoList'], json=param['payload'])
+    def test_get_project_list(self, params, tenant):
+        res = tenant.post(url=init_uri['GetProjectInfoList'], json=params['payload'])
         return res
 
     @allure.story('获得租户项目填答地址')
     @check_result
-    def test_get_send_project_list(self, param, tenant):
-        res = tenant.post(url=init_uri['GetSendToPersonList'], json=param['payload'])
+    def test_get_send_project_list(self, params, tenant):
+        res = tenant.post(url=init_uri['GetSendToPersonList'], json=params['payload'])
         return res
 
     @allure.story('获得人员填答状态')
     @check_result
-    def test_get_send_project_status_list(self, param, tenant):
-        res = tenant.post(url=init_uri['GetSendToPersonStatusList'], json=param['payload'])
+    def test_get_send_project_status_list(self, params, tenant):
+        res = tenant.post(url=init_uri['GetSendToPersonStatusList'], json=params['payload'])
         return res
 
     @allure.story('获取报告')
     @check_result
-    def test_get_analysis_list(self, param, tenant):
-        res = tenant.post(url=init_uri['GetAnalysisList'], json=param['payload'])
+    def test_get_analysis_list(self, params, tenant):
+        res = tenant.post(url=init_uri['GetAnalysisList'], json=params['payload'])
         return res
 
     @allure.story('下载报告')
     @check_result
-    def test_download_analysis_by_id(self, param, tenant):
-        res = tenant.post(url=init_uri['DownLoadAnalysisByID'], json=param['payload'])
+    def test_download_analysis_by_id(self, params, tenant):
+        res = tenant.post(url=init_uri['DownLoadAnalysisByID'], json=params['payload'])
         return res

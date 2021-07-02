@@ -34,8 +34,36 @@ def getkey_fixtrue(tenant):
     yield res['data']['apikey']
 
 
-@pytest.fixture(autouse=True)
-def predata_fixture(tenant, getkey_fixtrue, request):
+# @pytest.fixture(autouse=True)
+# def predata_fixture(tenant, getkey_fixtrue, request):
+#     """
+#     对header进行统一处理，对apikey进行预处理
+#     :param tenant:
+#     :param getkey_fixtrue:
+#     :param request:
+#     :return:
+#     """
+#     param = request.getfixturevalue('param')
+#
+#     if 'getkey_fixtrue' in request.fixturenames:
+#         apikey = param['payload'].get('apikey', None)
+#         if apikey == 0:
+#             param['payload'].update({"apikey": getkey_fixtrue})
+#     else:
+#         pass
+#     header = param.get('header', None)
+#     if header:
+#         tenant.session.headers.update(header)
+#     else:
+#         tenant.session.headers.pop(IP_HEADER, None)
+#
+#     title = param.get('title', None)
+#     if title:
+#         allure.title(title)
+#     yield param['payload']
+
+@pytest.fixture
+def params(tenant, getkey_fixtrue, request):
     """
     对header进行统一处理，对apikey进行预处理
     :param tenant:
@@ -43,14 +71,10 @@ def predata_fixture(tenant, getkey_fixtrue, request):
     :param request:
     :return:
     """
-    param = request.getfixturevalue('param')
-
-    if 'getkey_fixtrue' in request.fixturenames:
-        apikey = param['payload'].get('apikey', None)
-        if apikey == 0:
-            param['payload'].update({"apikey": getkey_fixtrue})
-    else:
-        pass
+    param = request.param
+    apikey = param['payload'].get('apikey', None)
+    if apikey == 0:
+        param['payload'].update({"apikey": getkey_fixtrue})
     header = param.get('header', None)
     if header:
         tenant.session.headers.update(header)
@@ -60,7 +84,7 @@ def predata_fixture(tenant, getkey_fixtrue, request):
     title = param.get('title', None)
     if title:
         allure.title(title)
-    return param['payload']
+    yield param
 
 
 def pytest_generate_tests(metafunc):
@@ -69,15 +93,17 @@ def pytest_generate_tests(metafunc):
     :param metafunc: 
     :return: 
     """
-    if "param" in metafunc.fixturenames:
+
+    if "params" in metafunc.fixturenames:
         filename = metafunc.function.__name__ + ".json"
         _f = os.path.join(BASE_PATH, 'data', filename)
         if os.path.exists(_f):
             dat = json.load(open(_f, encoding='UTF-8'))
             ids = [i["title"] for i in dat['payloads']]
-            metafunc.parametrize("param", dat['payloads'], ids=ids)
+            metafunc.parametrize("params", dat['payloads'], ids=ids, indirect=True)
         else:
-            metafunc.definition.add_marker('skip')
-            metafunc.parametrize("param", {})
+            metafunc.definition.add_marker('skip', append=False)
+            from collections import defaultdict
+            metafunc.parametrize("params", defaultdict(dict), indirect=True)
     else:
         pass
