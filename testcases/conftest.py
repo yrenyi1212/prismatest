@@ -71,20 +71,20 @@ def params(tenant, getkey_fixtrue, request):
     :param request:
     :return:
     """
-    param = request.param
-    apikey = param['payload'].get('apikey', None)
+    payloads = request.param
+    apikey = payloads['payload'].get('apikey', None)
     if apikey == 0:
-        param['payload'].update({"apikey": getkey_fixtrue})
-    header = param.get('header', None)
+        payloads['payload'].update({"apikey": getkey_fixtrue})
+    header = payloads.get('header', None)
     if header:
         tenant.session.headers.update(header)
     else:
         tenant.session.headers.pop(IP_HEADER, None)
 
-    title = param.get('title', None)
+    title = payloads.get('title', None)
     if title:
         allure.title(title)
-    yield param
+    yield payloads
 
 
 def pytest_generate_tests(metafunc):
