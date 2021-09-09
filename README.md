@@ -1,7 +1,7 @@
 # prismatest  
 ### pytest+allure test for prisma   
 ___
-``亲爱的同事，当你读到这份代码时...(*^_^*)``
+
 ___
 **介绍**  
 
